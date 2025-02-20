@@ -14,6 +14,8 @@ export default function MortgageCalculator() {
   const [insurance, setInsurance] = useState(83.33);
   const [propertyTaxRate, setPropertyTaxRate] = useState(0.68);
 
+  const formatNumber = (num) => num.toLocaleString();
+
   const calculateMortgage = () => {
     const downPayment = (downPaymentPercent / 100) * homePrice;
     const loanAmount = homePrice - downPayment;
@@ -37,6 +39,7 @@ export default function MortgageCalculator() {
   const { downPayment, loanAmount, mortgagePayment, monthlyPropertyTax, totalMonthlyCost } = calculateMortgage();
 
   return (
+    <div className="mx-auto">
     <div className="p-4 max-w-md mx-auto bg-white rounded-lg shadow-md">
       <h2 className="text-xl font-bold mb-4">Mortgage Calculator</h2>
       <label className="block mb-2">Home Price ($):</label>
@@ -67,13 +70,23 @@ export default function MortgageCalculator() {
         onChange={(e) => setPropertyTaxRate(Number(e.target.value))}
         className="w-full p-2 border rounded"
       />
+      <label className="block mt-2">Insurance Cost ($):</label>
+      <input 
+	type="number"
+	value={insurance}
+	onChange={(e) => setInsurance(Number(e.target.value))}
+	className="w-full p-2 border rounded"
+      />
       <div className="mt-4 p-4 bg-gray-100 rounded">
-        <p><strong>Down Payment:</strong> ${downPayment.toFixed(2)}</p>
-        <p><strong>Loan Amount:</strong> ${loanAmount.toFixed(2)}</p>
-        <p><strong>Monthly Mortgage Payment:</strong> ${mortgagePayment.toFixed(2)}</p>
-        <p><strong>Monthly Property Tax:</strong> ${monthlyPropertyTax.toFixed(2)}</p>
-        <p><strong>Total Monthly Cost:</strong> ${totalMonthlyCost.toFixed(2)}</p>
+        <p><strong>Down Payment:</strong> ${formatNumber(downPayment.toLocaleString(undefined, {maximumFractionDigits:2}))}</p>
+        <p><strong>Loan Amount:</strong> ${formatNumber(loanAmount.toLocaleString(undefined, {maximumFractionDigits:2}))}</p>
+        <p><strong>Monthly Mortgage Payment:</strong> ${formatNumber(mortgagePayment.toLocaleString(undefined, {maximumFractionDigits:2}))}</p>
+        <p><strong>Monthly Property Tax:</strong> ${formatNumber(monthlyPropertyTax.toLocaleString(undefined, {maximumFractionDigits:2}))}</p>
+	<p><strong>Monthly Insurance:</strong> ${formatNumber(insurance.toLocaleString(undefined, {maximumFractionDigits:2}))}</p>
+        <p><strong>Total Monthly Cost:</strong> ${formatNumber(totalMonthlyCost.toLocaleString(undefined, {maximumFractionDigits:2}))}</p>
       </div>
+    </div>
     </div>
   );
 }
+
