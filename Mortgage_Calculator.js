@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
 /**
  * Mortgage Calculator App
@@ -77,3 +78,5 @@ export default function MortgageCalculator() {
     </div>
   );
 }
+
+ReactDOM.render(<MortgageCalculator />, document.getElementById("root"));
